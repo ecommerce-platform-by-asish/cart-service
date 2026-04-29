@@ -1,0 +1,17 @@
+name: ecommerce-app
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: cart-postgres
+    environment:
+      POSTGRES_USER: ecommerce
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: cart_db
+    ports:
+      - "5434:5432"
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: cart-redis
+    ports:
+      - "6381:6379"
