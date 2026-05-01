@@ -23,7 +23,7 @@ spring:
       enabled: true
   docker:
     compose:
-      enabled: true
+      enabled: false
       lifecycle-management: start-only
   datasource:
     url: jdbc:postgresql://localhost:5434/cart_db

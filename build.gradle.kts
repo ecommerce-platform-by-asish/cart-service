@@ -65,6 +65,4 @@ tasks.register<Exec>("stopApp") {
     commandLine("sh", "-c", "lsof -t -i:8083 | xargs kill -9 || true")
 }
 
-tasks.clean {
-    mustRunAfter("spotlessApply")
-}
+
