@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -47,8 +46,7 @@ public class CartService {
 
   private void enrichWithPrices(Cart cart) {
     try {
-      List<String> productIds =
-          cart.getItems().stream().map(CartItem::getProductId).collect(Collectors.toList());
+      List<String> productIds = cart.getItems().stream().map(CartItem::getProductId).toList();
 
       BatchPriceRequest request =
           BatchPriceRequest.newBuilder().addAllProductIds(productIds).build();
