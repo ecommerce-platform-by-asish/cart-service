@@ -23,27 +23,24 @@ public class CartController {
   private final CartService cartService;
 
   @GetMapping
-  public ResponseEntity<ApiResponse<Cart>> getCart(@AuthenticationPrincipal String userId) {
-    return ApiResponse.ok(cartService.getCart(userId)).toEntity();
+  public Cart getCart(@AuthenticationPrincipal String userId) {
+    return cartService.getCart(userId);
   }
 
   @PostMapping("/items")
-  public ResponseEntity<ApiResponse<Void>> addItem(
+  public void addItem(
       @AuthenticationPrincipal String userId, @RequestBody CartItem item) {
     cartService.addItem(userId, item);
-    return ApiResponse.ok((Void) null, "Item added to cart").toEntity();
   }
 
   @DeleteMapping("/items/{productId}")
-  public ResponseEntity<ApiResponse<Void>> removeItem(
+  public void removeItem(
       @AuthenticationPrincipal String userId, @PathVariable String productId) {
     cartService.removeItem(userId, productId);
-    return ApiResponse.ok((Void) null, "Item removed from cart").toEntity();
   }
 
   @DeleteMapping
-  public ResponseEntity<ApiResponse<Void>> clearCart(@AuthenticationPrincipal String userId) {
+  public void clearCart(@AuthenticationPrincipal String userId) {
     cartService.clearCart(userId);
-    return ApiResponse.ok((Void) null, "Cart cleared").toEntity();
   }
 }

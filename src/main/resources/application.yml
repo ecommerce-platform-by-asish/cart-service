@@ -30,19 +30,13 @@ spring:
       connection-timeout: 3000
   flyway:
     enabled: false
-  mvc:
-    servlet:
-      load-on-startup: 1
+
   jpa:
-    defer-datasource-initialization: false
-    open-in-view: false
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        jdbc:
-          batch_size: 50
   data:
     redis:
       host: localhost
@@ -56,10 +50,4 @@ spring:
           address: static://localhost:9090
           negotiation-type: plaintext
 
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-    enabled: true
-  swagger-ui:
-    enabled: false
-  use-management-port: false
+
