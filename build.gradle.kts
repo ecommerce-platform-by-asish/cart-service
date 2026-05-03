@@ -29,7 +29,6 @@ dependencies {
     
     developmentOnly(platform(libs.sb.bom))
     developmentOnly(libs.sb.docker.compose)
-    developmentOnly(libs.sb.devtools)
 
     compileOnly(libs.lombok)
     annotationProcessor(platform(libs.sb.bom))

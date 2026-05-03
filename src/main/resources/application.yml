@@ -12,6 +12,8 @@ app:
   security:
     jwt:
       jwk-set-uri: 'http://localhost:8081/api/auth/.well-known/jwks.json'
+  caching:
+    enabled: true
 
 spring:
   application:

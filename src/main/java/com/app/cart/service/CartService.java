@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +29,10 @@ public class CartService {
   private final CartMapper cartMapper;
   private final PricingServiceGrpc.PricingServiceBlockingStub pricingStub;
 
+  @Cacheable(value = "carts", key = "#userId")
   @Transactional(readOnly = true)
   public Cart getCart(String userId) {
+    log.info("Cache miss for cart of user: {}", userId);
     CartEntity cartEntity =
         cartRepository
             .findByUserId(userId)
@@ -77,6 +81,7 @@ public class CartService {
     }
   }
 
+  @CacheEvict(value = "carts", key = "#userId")
   @Transactional
   public void addItem(String userId, CartItem item) {
     CartEntity cartEntity =
@@ -102,6 +107,7 @@ public class CartService {
     log.info("Added/Updated item {} in cart for user {}", item.getProductId(), userId);
   }
 
+  @CacheEvict(value = "carts", key = "#userId")
   @Transactional
   public void removeItem(String userId, String productId) {
     cartRepository
@@ -114,6 +120,7 @@ public class CartService {
             });
   }
 
+  @CacheEvict(value = "carts", key = "#userId")
   @Transactional
   public void clearCart(String userId) {
     cartRepository
