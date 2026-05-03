@@ -3,10 +3,8 @@ package com.app.cart.controller;
 import com.app.cart.model.Cart;
 import com.app.cart.model.CartItem;
 import com.app.cart.service.CartService;
-import com.app.common.dto.ApiResponse;
+import com.app.common.context.UserContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,24 +21,22 @@ public class CartController {
   private final CartService cartService;
 
   @GetMapping
-  public Cart getCart(@AuthenticationPrincipal String userId) {
-    return cartService.getCart(userId);
+  public Cart getCart() {
+    return cartService.getCart(UserContext.USER_ID.get());
   }
 
   @PostMapping("/items")
-  public void addItem(
-      @AuthenticationPrincipal String userId, @RequestBody CartItem item) {
-    cartService.addItem(userId, item);
+  public void addItem(@RequestBody CartItem item) {
+    cartService.addItem(UserContext.USER_ID.get(), item);
   }
 
   @DeleteMapping("/items/{productId}")
-  public void removeItem(
-      @AuthenticationPrincipal String userId, @PathVariable String productId) {
-    cartService.removeItem(userId, productId);
+  public void removeItem(@PathVariable String productId) {
+    cartService.removeItem(UserContext.USER_ID.get(), productId);
   }
 
   @DeleteMapping
-  public void clearCart(@AuthenticationPrincipal String userId) {
-    cartService.clearCart(userId);
+  public void clearCart() {
+    cartService.clearCart(UserContext.USER_ID.get());
   }
 }

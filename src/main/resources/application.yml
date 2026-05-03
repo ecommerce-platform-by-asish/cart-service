@@ -9,6 +9,9 @@ app:
     title: "Cart Service API"
     description: "Shopping Cart Management Service"
     version: "1.0.0"
+  security:
+    jwt:
+      jwk-set-uri: 'http://localhost:8081/api/auth/.well-known/jwks.json'
 
 spring:
   application:
@@ -49,5 +52,6 @@ spring:
         pricingService:
           address: static://localhost:9090
           negotiation-type: plaintext
+
 
 
